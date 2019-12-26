@@ -58,7 +58,7 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
 
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.design_navigation_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.design_navigation_vieww);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -138,7 +138,6 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         try {
-            System.out.println("tytr");
             song = (Song) arg;
             runOnUiThread(new Runnable() {
                 @Override
@@ -155,15 +154,11 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
     private void setTextSongView(){
         List<Stroka> textSong = SongSostoyan.getInstance().getListPerevod();
         Song tek_song = SongSostoyan.getInstance().getTextSong();
-        System.out.println("tesssssss");
-        Context context = getApplicationContext();
         textSongView.removeAllViews();
-        LayoutInflater lInflater = LayoutInflater.from(context);
-
+        LayoutInflater lInflater = LayoutInflater.from(this);
         inflate_card_song(lInflater, tek_song);
-
         if (textSong.size()==0){
-            TextView not_found = new TextView(context);
+            TextView not_found = new TextView(this);
             not_found.setText("Not Found");
             textSongView.addView(not_found);
         }
@@ -171,9 +166,6 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
 
 
         for (int i = 0; i < textSong.size(); i++) {
-
-
-
             TableRow ll = (TableRow) lInflater.inflate(R.layout.song_text, null);
             TextView textViewOrigin = ll.findViewById(R.id.textView1song);
             TextView textViewPerevod = ll.findViewById(R.id.textView2song);
@@ -181,7 +173,6 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
             textViewPerevod.setText(textSong.get(i).getPervod());
             //textPerevod = textPerevod + textSong.get(i).getStrok() + " : " + textSong.get(i).getPervod() + "\n";
             textSongView.addView(ll);
-
         }
 
         List<Song> listSong = SongSostoyan.getInstance().getPlayListItems();
@@ -199,7 +190,6 @@ public class ScrollingActivity extends AppCompatActivity implements Observer {
         if(tek_song != null) {
             textView2ArtistSongLast.setText(tek_song.getArtist());
             textView2NameSongLast.setText(tek_song.getSong());
-            System.out.println("gggggggggggggg:"+"http:"+tek_song.getUrl_img());
             if (!tek_song.getUrl_img().equals("")) {
                 Picasso.with(this)
                         .load("http:"+tek_song.getUrl_img())

@@ -105,8 +105,11 @@ public class ServiceEvropaPlus extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String textSongName = intent.getStringExtra("song");
-        text_song_widjet.setText(textSongName);
+        if(intent!=null) {
+            String textSongName = intent.getStringExtra("song");
+            text_song_widjet.setText(textSongName);
+
+        }
         return Service.START_STICKY;
     }
 
